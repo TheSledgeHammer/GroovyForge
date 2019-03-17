@@ -13,16 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.thesledgehammer.groovyforge;
 
-public class GroovyForgeProps {
+import net.minecraftforge.fml.relauncher.IFMLCallHook;
 
-  static final String MOD_ID = "groovyforge";
-	static final String MOD_NAME = "GroovyForge";
-	static final String VERSION = "1.0.0";
-	static final String MCVERSION = "1.12.2";
+import java.util.Map;
 
-    private GroovyForgeProps() {
+public class GroovyForgeSetup implements IFMLCallHook {
+    @Override
+    public void injectData(Map<String, Object> data) {
+        ClassLoader loader = (ClassLoader) data.get("classloader");
+        try {
+            loader.loadClass("com.thesledgehammer.groovyforge.GroovyLanguageAdapter");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't find GroovyForge language adapter", e);
+        }
 
+    }
+
+    @Override
+    public Void call() throws Exception {
+        return null;
     }
 }

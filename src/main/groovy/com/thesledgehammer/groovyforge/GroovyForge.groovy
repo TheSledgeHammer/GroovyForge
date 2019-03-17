@@ -13,34 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovyforge;
+package com.thesledgehammer.groovyforge
 
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
-@Mod(modid = GroovyForgeProps.MOD_ID, name = GroovyForgeProps.MOD_NAME, version = GroovyForgeProps.VERSION, acceptedMinecraftVersions = GroovyForgeProps.MCVERSION, modLanguageAdapter = "com.thesledgehammer.groovyforge.api.GroovyLanguageAdapter", dependencies = "")
+@Mod(modid = GroovyForge.MOD_ID, name = GroovyForge.MOD_NAME, version = GroovyForge.VERSION, acceptedMinecraftVersions = GroovyForge.MCVERSION, modLanguageAdapter = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter")
 class GroovyForge {
 
-	@Mod.Instance(GroovyForgeProps.MOD_ID)
-	static GroovyForge instance;
-
-	//static Logger logger;
-
-	@Mod.EventHandler
-	static void preInit(FMLPreInitializationEvent event) {
-		//logger = event.getModLog();
-		//proxy.preInit(event);
-	}
-
-	@Mod.EventHandler
-	static void init(FMLInitializationEvent event) {
-		//proxy.init(event);
-	}
-
-	@Mod.EventHandler
-	static void postInit(FMLPostInitializationEvent event) {
-		//proxy.postInit(event);
-	}
+    static final String MOD_ID = "groovyforge";
+    static final String MOD_NAME = "GroovyForge";
+    static final String VERSION = "1.0.0";
+    static final String MCVERSION = "1.12.2";
 }

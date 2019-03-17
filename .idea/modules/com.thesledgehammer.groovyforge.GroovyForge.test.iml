@@ -10,6 +10,20 @@
       </configuration>
     </facet>
   </component>
+  <component name="McpModuleSettings">
+    <option name="mappingFiles">
+      <set>
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\mcp-notch.srg" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\mcp.exc" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\mcp-srg.srg" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\notch-srg.srg" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\notch-mcp.srg" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\srg.exc" />
+      </set>
+    </option>
+    <option name="mcpVersion" value="snapshot_20171003" />
+    <option name="minecraftVersion" value="1.12.2" />
+  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../src/test" />
@@ -17,7 +31,15 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="com.thesledgehammer.groovyforge.GroovyForge.main" />
     <orderEntry type="module" module-name="com.thesledgehammer.groovyforge.GroovyForge.api" />
-    <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-ant:2.5.6" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/minecraft/deobfedDeps/compileDummy.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -27,6 +49,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-ant:2.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-cli-commons:2.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-groovysh:2.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-console:2.5.6" level="project" />
@@ -43,17 +66,6 @@
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-sql:2.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-swing:2.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-templates:2.5.6" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.12.2-14.23.5.2768/snapshot/20171003/forgeSrc-1.12.2-14.23.5.2768.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.12.2-14.23.5.2768/snapshot/20171003/forgeSrc-1.12.2-14.23.5.2768-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-test:2.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-test-junit5:2.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-testng:2.5.6" level="project" />
@@ -81,10 +93,12 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/minecraft/deobfedDeps/compileDummy.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.12.2-14.23.5.2768/snapshot/20171003/forgeSrc-1.12.2-14.23.5.2768.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.12.2-14.23.5.2768/snapshot/20171003/forgeSrc-1.12.2-14.23.5.2768-sources.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="library" name="Gradle: com.mojang:authlib:1.5.25" level="project" />

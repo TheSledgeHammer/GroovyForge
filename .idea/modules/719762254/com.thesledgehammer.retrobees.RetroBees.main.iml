@@ -10,6 +10,20 @@
       </configuration>
     </facet>
   </component>
+  <component name="McpModuleSettings">
+    <option name="mappingFiles">
+      <set>
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\mcp-notch.srg" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\mcp.exc" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\mcp-srg.srg" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\notch-srg.srg" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\notch-mcp.srg" />
+        <option value="C:\Users\marti\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20171003\1.12.2\srgs\srg.exc" />
+      </set>
+    </option>
+    <option name="mcpVersion" value="snapshot_20171003" />
+    <option name="minecraftVersion" value="1.12.2" />
+  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../RetroBees/src/main">
@@ -19,7 +33,15 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="com.thesledgehammer.retrobees.RetroBees.api" />
-    <orderEntry type="library" name="Gradle: net.sengir.forestry:forestry_1.12.2:5.8.2.387" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/minecraft/deobfedDeps/compileDummy.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -38,6 +60,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Gradle: net.sengir.forestry:forestry_1.12.2:5.8.2.387" level="project" />
     <orderEntry type="library" name="Gradle: TechReborn:TechReborn-1.12.2:universal:2.21.1.955" level="project" />
     <orderEntry type="library" name="Gradle: RebornCore:RebornCore-1.12.2:universal:3.13.6.425" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: TechReborn:TechReborn-ModCompatibility-1.12.2:universal:1.1.0.36" level="project" />
@@ -50,15 +73,6 @@
         <SOURCES>
           <root url="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.12.2-14.23.5.2768/snapshot/20171003/forgeSrc-1.12.2-14.23.5.2768-sources.jar!/" />
         </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/minecraft/deobfedDeps/compileDummy.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="library" name="Gradle: com.mojang:authlib:1.5.25" level="project" />

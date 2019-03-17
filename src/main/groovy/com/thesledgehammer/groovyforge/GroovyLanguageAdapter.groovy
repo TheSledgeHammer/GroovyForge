@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovyforge.api
+package com.thesledgehammer.groovyforge
 
 import net.minecraftforge.fml.common.FMLModContainer
 import net.minecraftforge.fml.common.ILanguageAdapter
@@ -29,17 +29,24 @@ class GroovyLanguageAdapter implements ILanguageAdapter {
     @Override
     Object getNewInstance(FMLModContainer container, Class<?> objectClass, ClassLoader classLoader, Method factoryMarkedAnnotation) throws Exception {
         Class<?> groovyObjectClass = Class.forName(objectClass.getName(), true, classLoader);
-        return groovyObjectClass.newInstance()
+        //return groovyObjectClass.newInstance();
+
+        if (factoryMarkedAnnotation != null) {
+            return factoryMarkedAnnotation.invoke(null);
+        } else {
+            return  objectClass.newInstance();
+        }
     }
 
     @Override
     boolean supportsStatics() {
-        return false
+        return true;
     }
 
     @Override
     void setProxy(Field target, Class<?> proxyTarget, Object proxy) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
-        target.set(proxyTarget.newInstance(), proxy);
+        //target.set(proxyTarget.newInstance(), proxy);
+        target.set(null, proxy);
     }
 
     @Override
