@@ -24,3 +24,7 @@ usernamecache.json
 usercache.json
 options.txt
 .classpath
+*.class
+config/forge.cfg
+*.gz
+*.log
