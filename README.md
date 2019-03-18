@@ -1,6 +1,19 @@
 # GroovyForge:
 A Minecraft Forge Language Adapter for the Apache Groovy programming language.
 
+### Getting Started:
+To use the GroovyForge Language Adapter add the following to @Mod in your main class
+```
+@Mod(modLanguageAdapter = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter")
+class modclass {
+    //Your mod class info
+}
+
+```
+
+Alternatively you can use GroovyMC which provides the Groovy Language Adapter along with an existing groovy based library from here:
+https://github.com/TheSledgeHammer/GroovyMC
+
 ### Build Gradle Environment:
 
 Maven Repository:

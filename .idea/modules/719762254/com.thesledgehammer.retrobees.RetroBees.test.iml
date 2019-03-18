@@ -59,8 +59,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Gradle: net.sengir.forestry:forestry_1.12.2:5.8.2.387" level="project" />
-    <orderEntry type="library" name="Gradle: TechReborn:TechReborn-1.12.2:universal:2.21.1.955" level="project" />
-    <orderEntry type="library" name="Gradle: RebornCore:RebornCore-1.12.2:universal:3.13.6.425" level="project" />
+    <orderEntry type="library" name="Gradle: TechReborn:TechReborn-1.12.2:universal:2.21.2.961" level="project" />
+    <orderEntry type="library" name="Gradle: RebornCore:RebornCore-1.12.2:universal:3.13.8.431" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: TechReborn:TechReborn-ModCompatibility-1.12.2:universal:1.1.0.36" level="project" />
     <orderEntry type="module-library">
       <library>
