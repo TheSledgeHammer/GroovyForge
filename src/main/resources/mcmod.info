@@ -5,7 +5,7 @@
 		"description": "A Language Adapter for using Apache Groovy in Minecraft Modding",
 		"version": "1.0.1",
 		"credits": "Apache Groovy",
-		"logoFile": "",
+		"logoFile": "assets/groovyforge/textures/groovyforgelogo.png",
 		"mcversion": "1.0.1",
 		"url": "https://github.com/TheSledgeHammer/GroovyForge",
 		"updateUrl": "",
