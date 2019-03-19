@@ -43,7 +43,7 @@ minecraft {
 	replace '@BUILD_NUMBER@', getBuildNumber()
 }
 
-group= 'com.thesledgehammer.groovyforge'
+group = 'com.thesledgehammer.groovyforge'
 archivesBaseName = "GroovyForge_" + mcversion
 
 dependencies {

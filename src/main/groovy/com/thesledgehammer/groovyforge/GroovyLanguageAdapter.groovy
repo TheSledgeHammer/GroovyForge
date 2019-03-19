@@ -29,13 +29,13 @@ class GroovyLanguageAdapter implements ILanguageAdapter {
     @Override
     Object getNewInstance(FMLModContainer container, Class<?> objectClass, ClassLoader classLoader, Method factoryMarkedAnnotation) throws Exception {
         Class<?> groovyObjectClass = Class.forName(objectClass.getName(), true, classLoader);
-        //return groovyObjectClass.newInstance();
-
+        return groovyObjectClass.newInstance();
+        /*
         if (factoryMarkedAnnotation != null) {
             return factoryMarkedAnnotation.invoke(null);
         } else {
             return  objectClass.newInstance();
-        }
+        }*/
     }
 
     @Override
