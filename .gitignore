@@ -12,15 +12,16 @@
 *.idea
 /bin
 /build
+/classes
 /config
 /crash-reports
+/idea
 /logs
 /mods
 /resourcepacks
 /run
 /saves
 /out
-/idea
 usernamecache.json
 usercache.json
 options.txt
