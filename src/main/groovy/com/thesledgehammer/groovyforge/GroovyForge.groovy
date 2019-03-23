@@ -1,27 +1,25 @@
-/*
- * Copyright [2018] [TheSledgeHammer]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.thesledgehammer.groovyforge
 
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 
-@Mod(modid = GroovyForge.MOD_ID, name = GroovyForge.MOD_NAME, version = GroovyForge.VERSION, acceptedMinecraftVersions = GroovyForge.MCVERSION, modLanguageAdapter = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter")
+@Mod(GroovyForge.MOD_ID)
 class GroovyForge {
 
     static final String MOD_ID = "groovyforge";
     static final String MOD_NAME = "GroovyForge";
-    static final String VERSION = "1.0.1";
-    static final String MCVERSION = "1.12.2";
+    static final String VERSION = "2.0.0";
+    static final String MCVERSION = "1.13.2";
+
+    static GroovyForge instance;
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    GroovyForge() {
+        instance = this;
+        MinecraftForge.EVENT_BUS.register(this);
+    }
 }
+
