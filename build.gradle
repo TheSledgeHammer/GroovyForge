@@ -15,15 +15,15 @@ buildscript {
 plugins {
 	id 'groovy'
 	id 'maven'
-
-	//id "net.minecraftforge.gradle.forge" version "2.0.2"
+	id 'eclipse'
+	id "com.jfrog.bintray" version "1.8.4"
 }
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
+apply from: rootProject.file('git-maven.gradle')
+apply from: rootProject.file('mavenBintray.gradle')
 
 group = 'com.thesledgehammer.groovyforge'
 archivesBaseName = "GroovyForge_" + mcversion
-version = version_major + '.' + version_minor + '.' + version_patch
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
@@ -64,23 +64,12 @@ minecraft {
                 }
             }
         }
-    }    
+    }
 }
 
 dependencies {
-	//minecraft 'net.minecraftforge:forge:' + mcversion + '-' + forgeversion
-	minecraft 'net.minecraftforge:forge:1.13.2-25.0.92'
+	minecraft 'net.minecraftforge:forge:' + mcversion + '-' + forgeversion
+	//minecraft 'net.minecraftforge:forge:1.13.2-25.0.92'
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
 }
-/*
-processResources {
-	from(sourceSets.main.resources.srcDirs) {
-		include 'mcmod.info'
-		// replace version and mcversion
-		expand 'version':project.version, 'mcversion':mcversion
-	}
-	from(sourceSets.main.resources.srcDirs) {
-		exclude 'mcmod.info'
-	}
-}*/
