@@ -17,11 +17,17 @@ package com.thesledgehammer.groovyforge
 
 import net.minecraftforge.fml.common.Mod
 
-@Mod(modid = GroovyForge.MOD_ID, name = GroovyForge.MOD_NAME, version = GroovyForge.VERSION, acceptedMinecraftVersions = GroovyForge.MCVERSION, modLanguageAdapter = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter")
+@Mod(
+  modid = GroovyForge.MOD_ID,
+  name = GroovyForge.MOD_NAME,
+  version = GroovyForge.VERSION,
+  acceptedMinecraftVersions = GroovyForge.MCVERSION,
+  modLanguageAdapter = GroovyForge.LANGUAGE_ADAPTER
+  )
 class GroovyForge {
-
-    static final String MOD_ID = "groovyforge";
-    static final String MOD_NAME = "GroovyForge";
-    static final String VERSION = "1.0.1";
-    static final String MCVERSION = "1.12.2";
+    static final String MOD_ID = "groovyforge"
+    static final String MOD_NAME = "GroovyForge"
+    static final String VERSION = "1.0.2"
+    static final String MCVERSION = "1.12.2"
+    static final String LANGUAGE_ADAPTER = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter"
 }
