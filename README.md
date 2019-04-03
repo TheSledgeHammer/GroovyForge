@@ -11,7 +11,7 @@ class modclass {
 
 ```
 
-Alternatively you can use GroovyMC which provides the Groovy Language Adapter along with an existing groovy based library from here:
+For Minecraft Forge Groovy Library please refer to GroovyMC; link below:
 https://github.com/TheSledgeHammer/GroovyMC
 
 ### Build Gradle Environment:
