@@ -1,13 +1,5 @@
 # GroovyForge:
-A Minecraft Forge Language providers for the Apache Groovy programming language.
-
-### Getting Started:
-To use the GroovyForge Language providers add the following to your mods.toml:
-```
-# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
-modLoader="groovyfml"
-```
-Currently unsure if this is required for Language providers or if you can just stick with javafml.
+A FabricMC Language providers for the Apache Groovy programming language.
 
 ### Build Gradle Environment:
 
