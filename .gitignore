@@ -31,3 +31,4 @@ config/forge.cfg
 *.gz
 *.log
 .gradle/gradle.log
+.gradle
