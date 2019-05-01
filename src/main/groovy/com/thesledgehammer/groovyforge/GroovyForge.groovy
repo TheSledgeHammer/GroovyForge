@@ -17,7 +17,7 @@ package com.thesledgehammer.groovyforge
 
 import net.minecraftforge.fml.common.Mod
 
-@Mod(modid = GroovyForge.MOD_ID, name = GroovyForge.MOD_NAME, version = GroovyForge.VERSION, acceptedMinecraftVersions = GroovyForge.MCVERSION, modLanguageAdapter = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter")
+@Mod(modid = GroovyForge.MOD_ID, name = GroovyForge.MOD_NAME, version = GroovyForge.VERSION, acceptedMinecraftVersions = GroovyForge.MCVERSION, modLanguageAdapter = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter", certificateFingerprint = "616437EBB587FE5A83EE547EA1D2E1C403B074CF")
 class GroovyForge {
 
     static final String MOD_ID = "groovyforge";
