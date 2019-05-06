@@ -29,13 +29,11 @@ class GroovyLanguageAdapter implements ILanguageAdapter {
     @Override
     Object getNewInstance(FMLModContainer container, Class<?> objectClass, ClassLoader classLoader, Method factoryMarkedAnnotation) throws Exception {
         Class<?> groovyObjectClass = Class.forName(objectClass.getName(), true, classLoader);
-        return groovyObjectClass.newInstance();
-        /*
         if (factoryMarkedAnnotation != null) {
             return factoryMarkedAnnotation.invoke(null);
         } else {
-            return  objectClass.newInstance();
-        }*/
+            return groovyObjectClass.newInstance();
+        }
     }
 
     @Override
@@ -45,12 +43,10 @@ class GroovyLanguageAdapter implements ILanguageAdapter {
 
     @Override
     void setProxy(Field target, Class<?> proxyTarget, Object proxy) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
-        //target.set(proxyTarget.newInstance(), proxy);
         target.set(null, proxy);
     }
 
     @Override
     void setInternalProxies(ModContainer mod, Side side, ClassLoader loader) {
-
     }
 }
