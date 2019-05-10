@@ -18,16 +18,19 @@ package com.thesledgehammer.groovyforge
 import net.minecraftforge.fml.common.Mod
 
 @Mod(
-  modid = GroovyForge.MOD_ID,
-  name = GroovyForge.MOD_NAME,
-  version = GroovyForge.VERSION,
-  acceptedMinecraftVersions = GroovyForge.MCVERSION,
-  modLanguageAdapter = GroovyForge.LANGUAGE_ADAPTER
+        modid = GroovyForge.MOD_ID,
+        name = GroovyForge.MOD_NAME,
+        version = GroovyForge.VERSION,
+        updateJSON = GroovyForge.UPDATE_JSON,
+        acceptedMinecraftVersions = GroovyForge.MCVERSION,
+        modLanguageAdapter = GroovyForge.LANGUAGE_ADAPTER,
+        certificateFingerprint = "616437EBB587FE5A83EE547EA1D2E1C403B074CF"
   )
 class GroovyForge {
     static final String MOD_ID = "groovyforge"
     static final String MOD_NAME = "GroovyForge"
-    static final String VERSION = "1.0.2"
+    static final String VERSION = "@VERSION@"
     static final String MCVERSION = "1.12.2"
+    static final String UPDATE_JSON = "@UPDATE@"
     static final String LANGUAGE_ADAPTER = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter"
 }

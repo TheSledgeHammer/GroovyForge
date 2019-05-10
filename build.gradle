@@ -36,12 +36,15 @@ repositories {
 	}
 }
 
+version = version_major + '.' + version_minor + '.' + version_patch
+
 minecraft {
 	version =  mcversion + "-" + forgeversion
 	runDir = "run"
 	mappings = mcp_mappings
+	replaceIn "GroovyForge.groovy"
 	replace '@VERSION@', project.version
-	replace '@BUILD_NUMBER@', getBuildNumber()
+	replace '@UPDATE@', update_json
 }
 
 group = 'com.thesledgehammer.groovyforge'
@@ -55,18 +58,14 @@ dependencies {
 processResources {
 	inputs.property "version", project.version
 	inputs.property "mcversion", project.minecraft.version
+	inputs.property "updatejson", update_json
 
 	from(sourceSets.main.resources.srcDirs) {
 		include 'mcmod.info'
 		// replace version and mcversion
-		expand 'version':project.version, 'mcversion':project.minecraft.version
+		expand 'version':project.version, 'mcversion':project.minecraft.version, 'updatejson': update_json
 	}
 	from(sourceSets.main.resources.srcDirs) {
 		exclude 'mcmod.info'
 	}
-	rename '(.+_at.cfg)', 'META-INF/$1'
-}
-
-def getBuildNumber() {
-	return "$System.env.BUILD_NUMBER" != "null" ? "$System.env.BUILD_NUMBER" : "0"
 }
