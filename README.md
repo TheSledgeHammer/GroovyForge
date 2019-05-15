@@ -4,6 +4,7 @@
 <p align="center">
     <a href="https://minecraft.curseforge.com/projects/groovyforge"><img src="http://cf.way2muchnoise.eu/full_317563_downloads.svg" /></a>
     <a href="https://minecraft.curseforge.com/projects/groovyforge"><img src="http://cf.way2muchnoise.eu/packs/full_317563_in_packs.svg" /></a>
+      <a href="https://depshield.github.io"><img src="https://depshield.sonatype.org/badges/TheSledgeHammer/GroovyForge/depshield.svg")] /></a>
 </p>
 
 ### Getting Started:
