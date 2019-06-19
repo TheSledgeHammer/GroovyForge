@@ -22,7 +22,6 @@
 /run
 /saves
 /out
-/ClientRuntime
 usernamecache.json
 usercache.json
 options.txt
@@ -31,3 +30,4 @@ options.txt
 config/forge.cfg
 *.gz
 *.log
+.gradle/gradle.log
