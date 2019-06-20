@@ -20,8 +20,8 @@ plugins {
 	id "com.jfrog.bintray" version "1.8.4"
 }
 apply plugin: 'net.minecraftforge.gradle'
-//apply from: rootProject.file('git-maven.gradle')
-//apply from: rootProject.file('mavenBintray.gradle')
+apply from: project.file('git-maven.gradle')
+apply from: project.file('mavenBintray.gradle')
 
 version = version_major + '.' + version_minor + '.' + version_patch
 group = 'com.thesledgehammer.groovyforge'
@@ -42,7 +42,6 @@ repositories {
 
 minecraft {
 	mappings channel: 'snapshot', version: mcp_mappings
-	//mappings channel: 'snapshot', version: '20180921-1.13'
 	runs {
 		client {
             workingDirectory project.file('run')

@@ -27,48 +27,12 @@ import net.minecraftforge.forgespi.language.ModFileScanData
 //Extends FMLModContainer, thus is more likely to be interoperable with the FMLJavaModLoadingContext
 class FMLGroovyModContainer extends FMLModContainer {
 
-    private Object modInstance;
     private final ModFileScanData scanResults;
-    private final Class<?> modClass;
 
     FMLGroovyModContainer(IModInfo info, String className, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
         super(info, className, modClassLoader, modFileScanResults);
         this.scanResults = modFileScanResults;
         final FMLGroovyModLoadingContext contextExtension = new FMLGroovyModLoadingContext(this);
-        //this.contextExtension = {Supplier -> contextExtension};
         this.contextExtension = { -> contextExtension };
-        try {
-            modClass = Class.forName(className, true, modClassLoader);
-        } catch (Throwable e) {
-            throw new ModLoadingException(info, ModLoadingStage.CONSTRUCT, "fml.modloading.failedtoloadmodclass", e);
-        }
-    }
-
-
-    private void constructMod(LifecycleEventProvider.LifecycleEvent event) {
-        try
-        {
-            //LOGGER.debug(LOADING, "Loading mod instance {} of type {}", getModId(), modClass.getName());
-            this.modInstance = modClass.newInstance();
-            //LOGGER.debug(LOADING, "Loaded mod instance {} of type {}", getModId(), modClass.getName());
-        }
-        catch (Throwable e)
-        {
-          //  LOGGER.error(LOADING,"Failed to create mod instance. ModID: {}, class {}", getModId(), modClass.getName(), e);
-            throw new ModLoadingException(modInfo, event.fromStage(), "fml.modloading.failedtoloadmod", e, modClass);
-        }
-        //LOGGER.debug(LOADING, "Injecting Automatic event subscribers for {}", getModId());
-        AutomaticEventSubscriber.inject(this, this.scanResults, this.modClass.getClassLoader());
-        //LOGGER.debug(LOADING, "Completed Automatic event subscribers for {}", getModId());
-    }
-
-    @Override
-    boolean matches(Object mod) {
-        return mod == modInstance;
-    }
-
-    @Override
-    Object getMod() {
-        return modInstance;
     }
 }
