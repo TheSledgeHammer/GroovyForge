@@ -16,12 +16,14 @@ plugins {
 	id 'groovy'
 	id 'maven'
 	id 'eclipse'
+	id 'idea'
 	id "com.jfrog.bintray" version "1.8.4"
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply from: rootProject.file('git-maven.gradle')
 apply from: rootProject.file('mavenBintray.gradle')
 
+version = version_major + '.' + version_minor + '.' + version_patch
 group = 'com.thesledgehammer.groovyforge'
 archivesBaseName = "GroovyForge_" + mcversion
 
@@ -39,8 +41,7 @@ repositories {
 }
 
 minecraft {
-	//mappings channel: 'snapshot', version: mcp_mappings
-	mappings channel: 'snapshot', version: '20180921-1.13'
+	mappings channel: 'snapshot', version: mcp_mappings
 	runs {
 		client {
             workingDirectory project.file('run')
@@ -69,7 +70,6 @@ minecraft {
 
 dependencies {
 	minecraft 'net.minecraftforge:forge:' + mcversion + '-' + forgeversion
-	//minecraft 'net.minecraftforge:forge:1.13.2-25.0.92'
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
 }

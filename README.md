@@ -1,3 +1,12 @@
+<p align="center" style="padding: 3em;"><img width="150" src="https://github.com/TheSledgeHammer/GroovyForge/blob/master/src/main/resources/assets/groovyforge/textures/groovyforgelogo.png?raw=true" /></p>
+<h1 align="center" style="margin-top: 20px; border-bottom: 0;">GroovyForge</h1>
+<p align="center">A Minecraft Forge Language Adapter for the Apache Groovy programming language.</p>
+<p align="center">
+    <a href="https://minecraft.curseforge.com/projects/groovyforge"><img src="http://cf.way2muchnoise.eu/full_317563_downloads.svg" /></a>
+    <a href="https://minecraft.curseforge.com/projects/groovyforge"><img src="http://cf.way2muchnoise.eu/packs/full_317563_in_packs.svg" /></a>
+    <a href="https://minecraft.curseforge.com/projects/groovyforge"><img src="http://cf.way2muchnoise.eu/mods/317563.svg" /></a>
+    <a href="https://minecraft.curseforge.com/projects/groovyforge"><img src="http://cf.way2muchnoise.eu/versions/317563.svg" /></a>
+</p>
 # GroovyForge:
 A Minecraft Forge Language providers for the Apache Groovy programming language.
 
@@ -22,7 +31,7 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.13.2:+:universal"
 }
 ```
 

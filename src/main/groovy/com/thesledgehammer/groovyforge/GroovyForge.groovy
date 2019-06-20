@@ -11,7 +11,7 @@ class GroovyForge {
 
     static final String MOD_ID = "groovyforge";
     static final String MOD_NAME = "GroovyForge";
-    static final String VERSION = "2.0.0";
+    static final String VERSION = "2.0.1";
     static final String MCVERSION = "1.13.2";
 
     static GroovyForge instance;

@@ -20,8 +20,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider
 import net.minecraftforge.forgespi.language.ILifecycleEvent
 import net.minecraftforge.forgespi.language.IModLanguageProvider
 import net.minecraftforge.forgespi.language.ModFileScanData
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
+import org.apache.logging.log4j.core.Logger
 
 import java.util.function.Consumer
 import java.util.function.Function
@@ -29,10 +28,11 @@ import java.util.function.Supplier
 import java.util.stream.Collectors
 
 import static net.minecraftforge.fml.Logging.SCAN
+import static org.apache.logging.log4j.LogManager.*
 
 class FMLGroovyModLanguageProvider implements IModLanguageProvider {
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = getLogger();
 
     @Override
     String name() {
