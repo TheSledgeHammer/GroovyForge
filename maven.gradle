@@ -1,0 +1,73 @@
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+//GITHOST: Remote hosting location e.g. GitHub.com, GitLab.com, BitBucket.org etc
+//COMPANY: Company name or User
+//REPOSITORY_NAME: Git Repository name
+
+def group = "com.thesledgehammer" + "." + project.archivesBaseName
+def semVersion = version_major + '.' + version_minor + '.' + version_patch
+def artifactID = project.archivesBaseName + '_' + project.mcversion
+/*
+task signJar(type: SignJar, dependsOn: reobfJar) {
+  onlyIf{
+    keyStore = project.keyStore
+    alias = project.keyStoreAlias
+    storePass = project.keyStorePass
+    keyPass = project.keyStoreKeyPass
+    inputFile = jar.archivePath
+    outputFile = jar.archivePath
+  }
+}
+build.dependsOn signJar
+*/
+publishing {
+	publications {
+    maven(MavenPublication) {
+      groupId = group
+      version = semVersion
+      artifactId = artifactID
+
+      from components.java
+
+      pom {
+       scm {
+          connection = 'scm:git:git@' + GITHOST + ':' + COMPANY + '/' + REPOSITORY_NAME + '.git'
+          developerConnection = 'scm:git:git@' + GITHOST + ':' + COMPANY + '/' + REPOSITORY_NAME + '.git'
+        }
+        licenses {
+          license {
+            name = LICENSE_NAME
+            url = LICENSE_URL
+            distribution = 'repo'
+          }
+        }
+        developers {
+          developer {
+            id = 'TheSledgehammer'
+            name = 'TheSledgehammer'
+          }
+        }
+      }
+    }
+  }
+  repositories {
+    maven {
+      url "https://dl.bintray.com/thesledgehammer/development"
+      url "file://${local_maven}"
+    }
+  }
+}
+
+bintray {
+  user = project.getProperty("bintray_user")
+  key = project.getProperty("bintray_key")
+  publications = ['maven']
+  pkg {
+    repo = 'development'
+    name = project.archivesBaseName
+    version {
+      name = semVersion
+    }
+  }
+}

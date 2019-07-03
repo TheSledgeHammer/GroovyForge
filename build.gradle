@@ -20,8 +20,7 @@ plugins {
 	id "com.jfrog.bintray" version "1.8.4"
 }
 apply plugin: 'net.minecraftforge.gradle'
-apply from: project.file('git-maven.gradle')
-apply from: project.file('mavenBintray.gradle')
+apply from: project.file('maven.gradle')
 
 version = version_major + '.' + version_minor + '.' + version_patch
 group = 'com.thesledgehammer.groovyforge'
