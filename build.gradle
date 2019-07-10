@@ -19,8 +19,7 @@ plugins {
 	id "net.minecraftforge.gradle.forge" version "2.0.2"
 	id "com.jfrog.bintray" version "1.8.4"
 }
-apply from: rootProject.file('git-maven.gradle')
-apply from: rootProject.file('mavenBintray.gradle')
+apply from: project.file('maven.gradle')
 
 sourceCompatibility = 1.8
 targetCompatibility= 1.8
