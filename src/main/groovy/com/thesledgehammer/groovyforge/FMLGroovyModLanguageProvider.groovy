@@ -16,11 +16,12 @@
 
 package com.thesledgehammer.groovyforge
 
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider
 import net.minecraftforge.forgespi.language.ILifecycleEvent
 import net.minecraftforge.forgespi.language.IModLanguageProvider
 import net.minecraftforge.forgespi.language.ModFileScanData
+import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.core.Logger
+import org.objectweb.asm.Type
 
 import java.util.function.Consumer
 import java.util.function.Function
@@ -28,11 +29,12 @@ import java.util.function.Supplier
 import java.util.stream.Collectors
 
 import static net.minecraftforge.fml.Logging.SCAN
-import static org.apache.logging.log4j.LogManager.*
 
 class FMLGroovyModLanguageProvider implements IModLanguageProvider {
 
-    private static final Logger LOGGER = getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
+    static final Type MODANNOTATION =  Type.getType("Lnet/minecraftforge/fml/common/Mod;");
+
 
     @Override
     String name() {
@@ -43,7 +45,7 @@ class FMLGroovyModLanguageProvider implements IModLanguageProvider {
     Consumer<ModFileScanData> getFileVisitor() {
         return { scanResult ->
             final Map<String, FMLGroovyModTarget> modTargetMap = scanResult.getAnnotations().stream()
-                    .filter({ad -> ad.getAnnotationType().equals(FMLJavaModLanguageProvider.MODANNOTATION)})
+                    .filter({ad -> ad.getAnnotationType().equals(MODANNOTATION)})
                     .peek({ad -> LOGGER.debug(SCAN, "Found @Mod class {} with id {}", ad.getClassType().getClassName(), ad.getAnnotationData().get("value"))})
                     .map({ad -> new FMLGroovyModTarget(ad.getClassType().getClassName(), (String)ad.getAnnotationData().get("value"))})
                     .collect(Collectors.toMap({it.getModId()} as Function<FMLGroovyModTarget, String>, Function.identity(), {a, b -> a}));

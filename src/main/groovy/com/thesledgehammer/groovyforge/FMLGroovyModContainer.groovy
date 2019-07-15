@@ -16,23 +16,34 @@
 
 package com.thesledgehammer.groovyforge
 
+import net.minecraftforge.eventbus.EventBusErrorMessage
+import net.minecraftforge.eventbus.api.BusBuilder
+import net.minecraftforge.eventbus.api.Event
+import net.minecraftforge.eventbus.api.IEventBus
+import net.minecraftforge.eventbus.api.IEventListener
 import net.minecraftforge.fml.AutomaticEventSubscriber
 import net.minecraftforge.fml.LifecycleEventProvider
+import net.minecraftforge.fml.ModContainer
 import net.minecraftforge.fml.ModLoadingException
 import net.minecraftforge.fml.ModLoadingStage
 import net.minecraftforge.fml.javafmlmod.FMLModContainer
 import net.minecraftforge.forgespi.language.IModInfo
 import net.minecraftforge.forgespi.language.ModFileScanData
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger
+
+import java.util.function.Consumer;
+
+import static net.minecraftforge.fml.Logging.LOADING;
+
 //Extends FMLModContainer, thus is more likely to be interoperable with the FMLJavaModLoadingContext
 class FMLGroovyModContainer extends FMLModContainer {
 
-    private final ModFileScanData scanResults;
-
     FMLGroovyModContainer(IModInfo info, String className, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
-        super(info, className, modClassLoader, modFileScanResults);
-        this.scanResults = modFileScanResults;
+        super(info, className, modClassLoader, modFileScanResults)
         final FMLGroovyModLoadingContext contextExtension = new FMLGroovyModLoadingContext(this);
         this.contextExtension = { -> contextExtension };
+
     }
 }

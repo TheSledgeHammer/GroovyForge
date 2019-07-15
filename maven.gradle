@@ -8,6 +8,14 @@ apply plugin: 'maven-publish'
 def group = "com.thesledgehammer" + "." + project.archivesBaseName
 def semVersion = version_major + '.' + version_minor + '.' + version_patch
 def artifactID = project.archivesBaseName + '_' + project.mcversion
+
+jar {
+  classifier = 'universal'
+  manifest {
+		attributes 'FMLAT': project.archivesBaseName + '_at.cfg'
+  }
+}
+
 /*
 task signJar(type: SignJar, dependsOn: reobfJar) {
   onlyIf{

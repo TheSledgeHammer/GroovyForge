@@ -40,7 +40,7 @@ repositories {
 }
 
 minecraft {
-	mappings channel: 'snapshot', version: mcp_mappings
+	mappings channel: 'snapshot', version: "${mcp_mappings}-${mcversion}"
 	runs {
 		client {
             workingDirectory project.file('run')
@@ -68,7 +68,23 @@ minecraft {
 }
 
 dependencies {
-	minecraft 'net.minecraftforge:forge:' + mcversion + '-' + forgeversion
+	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
+}
+
+jar {
+	manifest {
+		attributes([
+				'FMLModType': 'LANGPROVIDER'
+		])
+		attributes(['Specification-Title': 'Mod Language Provider',
+					'Specification-Vendor': 'TheSledgeHammer',
+					'Specification-Version': "2.5",
+					'Implementation-Title': "GroovyForge",
+					'Implementation-Version': "${version}",
+					'Implementation-Vendor' :'GroovyForge',
+					'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+		])
+	}
 }
