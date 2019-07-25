@@ -9,8 +9,8 @@ issueTrackerURL="https://my.issue.tracker/"
 displayName="Example Groovy Mod" #mandatory
 updateJSONURL="http://myurl.me/" #optional
 displayURL="https://example.com" #optional
-logoFile="examplemode.png" #optional
-credits="Apache Groovy" #optional
+logoFile="examplemod.png" #optional
+credits="TheSledgeHammer" #optional
 authors="TheSledgeHammer" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
