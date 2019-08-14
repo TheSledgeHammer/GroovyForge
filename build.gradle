@@ -40,7 +40,7 @@ repositories {
 }
 
 minecraft {
-	mappings channel: 'snapshot', version: "${mcp_mappings}-${mcversion}"
+	mappings channel: 'snapshot', version:"${mcp_mappings}-${mcversion_mappings}"
 	runs {
 		client {
             workingDirectory project.file('run')
@@ -58,6 +58,24 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            mods {
+                groovyforge {
+                    source sourceSets.main
+                }
+            }
+        }
+		
+		data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'groovyforge', '--all', '--output', file('src/generated/resources/')
+
             mods {
                 groovyforge {
                     source sourceSets.main
