@@ -16,6 +16,16 @@ jar {
   }
 }
 
+ext {
+  JAR_SIGNER = null
+  if (project.hasProperty('keystore')) {
+    JAR_SIGNER = [
+      keyStore = project.keyStore,
+      storePass = project.keyStorePass,
+      keyPass = project.keyStoreKeyPass
+    ]
+   }
+}
 /*
 task signJar(type: SignJar, dependsOn: reobfJar) {
   onlyIf{

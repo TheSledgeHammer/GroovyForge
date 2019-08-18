@@ -40,7 +40,7 @@ repositories {
 }
 
 minecraft {
-	mappings channel: 'snapshot', version:"${mcp_mappings}-${mcversion_mappings}"
+	mappings channel: 'snapshot', version:"${mcp_mappings}-${mc_version_mappings}"
 	runs {
 		client {
             workingDirectory project.file('run')
