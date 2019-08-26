@@ -27,7 +27,7 @@ class FMLGroovyModLoadingContext {
     }
 
     IEventBus getModEventBus() {
-        return container.getEventBus();
+        return this.container.getEventBus();
     }
 
     static FMLGroovyModLoadingContext get() {
