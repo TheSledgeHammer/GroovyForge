@@ -15,7 +15,6 @@ buildscript {
 plugins {
 	id 'groovy'
 	id 'maven'
-	id 'eclipse'
 	id 'idea'
 	id "com.jfrog.bintray" version "1.8.4"
 }
@@ -27,7 +26,6 @@ group = 'com.thesledgehammer.groovyforge'
 archivesBaseName = "GroovyForge_" + mcversion
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
-
 repositories {
 	maven {
 		name = "Apache Groovy"
