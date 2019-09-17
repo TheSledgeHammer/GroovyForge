@@ -42,14 +42,13 @@ class FMLGroovyModTarget implements IModLanguageProvider.IModLanguageLoader {
     }
 
     @Override
-    def <T> T loadMod(IModInfo info, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
+    <T> T loadMod(IModInfo info, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
         try {
             final Class<?> fmlContainer = Class.forName("com.thesledgehammer.groovyforge.FMLGroovyModContainer", true, Thread.currentThread().getContextClassLoader());
             LOGGER.debug(LOADING, "Loading FMLGroovyModContainer from classloader {} - got {}", Thread.currentThread().getContextClassLoader(), fmlContainer.getClassLoader());
             final Constructor<?> constructor = fmlContainer.getConstructor(IModInfo.class, String.class, ClassLoader.class, ModFileScanData.class);
             return (T) constructor.newInstance(info, className, modClassLoader, modFileScanResults);
-        }
-        catch (NoSuchMethodException | ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             LOGGER.fatal(LOADING,"Unable to load FMLGroovyModContainer, wut?", e);
             throw new RuntimeException(e);
         }

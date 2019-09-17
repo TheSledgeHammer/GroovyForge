@@ -31,4 +31,3 @@ config/forge.cfg
 *.gz
 *.log
 .gradle/gradle.log
-GMC.groovy

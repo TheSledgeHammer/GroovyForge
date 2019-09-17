@@ -20,7 +20,6 @@ import net.minecraftforge.forgespi.language.ILifecycleEvent
 import net.minecraftforge.forgespi.language.IModLanguageProvider
 import net.minecraftforge.forgespi.language.ModFileScanData
 import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.core.Logger
 import org.objectweb.asm.Type
 
 import java.util.function.Consumer
@@ -32,9 +31,8 @@ import static net.minecraftforge.fml.Logging.SCAN
 
 class FMLGroovyModLanguageProvider implements IModLanguageProvider {
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final def LOGGER = LogManager.getLogger("Loading");
     static final Type MODANNOTATION =  Type.getType("Lnet/minecraftforge/fml/common/Mod;");
-
 
     @Override
     String name() {
