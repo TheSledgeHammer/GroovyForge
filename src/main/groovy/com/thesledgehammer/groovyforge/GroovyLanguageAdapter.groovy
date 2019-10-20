@@ -28,13 +28,13 @@ class GroovyLanguageAdapter implements ILanguageAdapter {
 
     @Override
     Object getNewInstance(FMLModContainer container, Class<?> objectClass, ClassLoader classLoader, Method factoryMarkedAnnotation) throws Exception {
-        Class<?> groovyObjectClass = Class.forName(objectClass.getName(), true, classLoader);
+        GroovyClassLoader groovyClassLoader = new GroovyClassLoader(classLoader);
+        Class<?> groovyObjectClass = groovyClassLoader.loadClass(objectClass.getName());
         if (factoryMarkedAnnotation != null) {
-            return factoryMarkedAnnotation.invoke(null);
+            return factoryMarkedAnnotation.invoke(groovyObjectClass);
         } else {
             return groovyObjectClass.newInstance();
         }
-        //factoryMarkedMethod != null ? factoryMarkedMethod.invoke(null) : objectClass.newInstance()
     }
 
     @Override
@@ -49,5 +49,6 @@ class GroovyLanguageAdapter implements ILanguageAdapter {
 
     @Override
     void setInternalProxies(ModContainer mod, Side side, ClassLoader loader) {
+
     }
 }

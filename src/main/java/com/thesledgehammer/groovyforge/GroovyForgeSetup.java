@@ -21,6 +21,7 @@ import net.minecraftforge.fml.relauncher.IFMLCallHook;
 import java.util.Map;
 
 public class GroovyForgeSetup implements IFMLCallHook {
+
     @Override
     public void injectData(Map<String, Object> data) {
         ClassLoader loader = (ClassLoader) data.get("classloader");

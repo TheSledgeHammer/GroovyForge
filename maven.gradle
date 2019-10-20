@@ -1,5 +1,6 @@
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
 //GITHOST: Remote hosting location e.g. GitHub.com, GitLab.com, BitBucket.org etc
 //COMPANY: Company name or User
@@ -16,17 +17,16 @@ jar {
   }
 }
 
-task signJar(type: SignJar, dependsOn: reobfJar) {
-  onlyIf{
-    keyStore = project.keyStore
-    alias = project.keyStoreAlias
-    storePass = project.keyStorePass
-    keyPass = project.keyStoreKeyPass
+signing {
+  if (project.hasProperty('keystore')) {
+    keyStore = System.getenv('keyStore')
+    alias = System.getenv('keyStoreAlias')
+    storePass = System.getenv('keyStorePass')
+    keyPass = System.getenv('keyStoreKeyPass')
     inputFile = jar.archivePath
     outputFile = jar.archivePath
   }
 }
-build.dependsOn signJar
 
 publishing {
 	publications {
@@ -67,8 +67,8 @@ publishing {
 }
 
 bintray {
-  user = project.getProperty("bintray_user")
-  key = project.getProperty("bintray_key")
+  user = System.getenv('bintray_user')
+  key = System.getenv('bintray_key')
   publications = ['maven']
   pkg {
     repo = 'development'
