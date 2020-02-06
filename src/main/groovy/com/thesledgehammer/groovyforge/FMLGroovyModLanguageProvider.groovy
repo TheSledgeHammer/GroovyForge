@@ -20,6 +20,7 @@ import net.minecraftforge.forgespi.language.ILifecycleEvent
 import net.minecraftforge.forgespi.language.IModLanguageProvider
 import net.minecraftforge.forgespi.language.ModFileScanData
 import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.MarkerManager
 import org.objectweb.asm.Type
 
 import java.util.function.Consumer

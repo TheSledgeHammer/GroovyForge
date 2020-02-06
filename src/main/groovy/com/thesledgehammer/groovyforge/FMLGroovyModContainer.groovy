@@ -16,24 +16,31 @@
 
 package com.thesledgehammer.groovyforge
 
-
-import net.minecraftforge.fml.javafmlmod.FMLModContainer
+import net.minecraftforge.eventbus.EventBusErrorMessage
+import net.minecraftforge.eventbus.api.BusBuilder
+import net.minecraftforge.eventbus.api.Event
+import net.minecraftforge.eventbus.api.IEventBus
+import net.minecraftforge.eventbus.api.IEventListener
+import net.minecraftforge.fml.AutomaticEventSubscriber
+import net.minecraftforge.fml.LifecycleEventProvider
+import net.minecraftforge.fml.ModContainer
+import net.minecraftforge.fml.ModLoadingException
+import net.minecraftforge.fml.ModLoadingStage
+import net.minecraftforge.fml.config.ModConfig
 import net.minecraftforge.forgespi.language.IModInfo
 import net.minecraftforge.forgespi.language.ModFileScanData
+import org.apache.logging.log4j.LogManager
+
+import java.util.function.Consumer
+
+import static net.minecraftforge.fml.Logging.LOADING
 
 /**Extends FMLModContainer, thus is more likely to be interoperable with the FMLJavaModLoadingContext.
  * Note:Does not allow for use of the FMLJavaModLoadingContext from a Groovy Based Mod. Will throw a cast exception
  **/
-class FMLGroovyModContainer extends FMLModContainer {
 
-    FMLGroovyModContainer(IModInfo info, String className, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
-        super(info, className, modClassLoader, modFileScanResults)
-        final FMLGroovyModLoadingContext contextExtension = new FMLGroovyModLoadingContext(this);
-        this.contextExtension = { -> contextExtension };
-    }
-}
-//Experimenting with extending ModContainer over FMLModContainer for advantages/ distadvantages
-/*
+class FMLGroovyModContainer extends ModContainer {
+
     private static final def LOGGER = LogManager.getLogger();
     private final ModFileScanData scanResults;
     private final IEventBus eventBus;
@@ -136,6 +143,7 @@ class FMLGroovyModContainer extends FMLModContainer {
             LOGGER.debug(LOADING, "Fired event for modid {} : {}", this.getModId(), event);
         }
         catch (Throwable e) {
+            LOADING
             LOGGER.error(LOADING, "Caught exception during event {} dispatch for modid {}", event, this.getModId(), e);
             throw new ModLoadingException(modInfo, lifecycleEvent.fromStage(), "fml.modloading.errorduringevent", e);
         }
@@ -183,6 +191,14 @@ class FMLGroovyModContainer extends FMLModContainer {
     @Override
     protected void acceptEvent(final Event e) {
         this.eventBus.post(e);
+    }
+}
+/*
+class FMLGroovyModContainer extends FMLModContainer {
+    FMLGroovyModContainer(IModInfo info, String className, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
+        super(info, className, modClassLoader, modFileScanResults)
+        final FMLGroovyModLoadingContext contextExtension = new FMLGroovyModLoadingContext(this);
+        this.contextExtension = { -> contextExtension };
     }
 }
 */
