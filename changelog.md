@@ -1,6 +1,13 @@
 #GroovyForge Changelog
 
 ## [Unreleased]
+## [2.5.3] - 2020-02-07
+### Added
+### Changes
+- Minor Bug Fixes
+### Fixed
+### Removed
+
 ## [2.5.2] - 2019-10-21
 ### Added
 ### Changes
