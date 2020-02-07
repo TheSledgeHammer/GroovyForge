@@ -93,7 +93,7 @@ jar {
 		])
 		attributes(['Specification-Title': 'Mod Language Provider',
 					'Specification-Vendor': 'TheSledgeHammer',
-					'Specification-Version': "2.5",
+					'Specification-Version': "3",
 					'Implementation-Title': "GroovyForge",
 					'Implementation-Version': "${version}",
 					'Implementation-Vendor' :'GroovyForge',

@@ -69,8 +69,8 @@ publishing {
 }
 
 bintray {
-  user = System.getenv('bintray_user')
-  key = System.getenv('bintray_key')
+  user = project.hasProperty('bintray_user') ? project.property('bintray_user') : System.getenv('bintray_user')
+	key = project.hasProperty('bintray_key') ? project.property('bintray_key') : System.getenv('bintray_key')
   publications = ['maven']
   pkg {
     repo = 'development'
