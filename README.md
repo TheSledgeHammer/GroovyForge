@@ -15,7 +15,7 @@ To use the GroovyForge Language providers add the following to your mods.toml:
 ```
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="groovyfml"
-loaderVersion="[2.5,)"
+loaderVersion="[3,)"
 ```
 Currently unsure if this is required for Language providers or if you can just stick with javafml.
 
@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.14.2:+:universal"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.15.2:+:universal"
 }
 ```
 
