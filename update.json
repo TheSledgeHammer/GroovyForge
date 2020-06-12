@@ -1,7 +1,7 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/groovyforge",
   "1.15.2": {
-    "3.0.0": "Changelog: https://github.com/TheSledgeHammer/GroovyForge/blob/1.14.x/changelog.md"
+    "3.0.0": "Changelog: https://github.com/TheSledgeHammer/GroovyForge/blob/1.15.x/changelog.md"
   },
   "promos": {
     "1.15.2-latest": "3.0.0",
