@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.15.2:+:universal"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.16.1:+:universal"
 }
 ```
 
