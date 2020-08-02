@@ -1,0 +1,17 @@
+modLoader="groovyfml" #mandatory
+loaderVersion="[2.5,)"
+issueTrackerURL="https://my.issue.tracker/"
+
+[[mods]] #mandatory
+    modId="examplegroovymod"  #mandatory
+    version="${file.jarVersion}"  #mandatory
+
+displayName="Example Groovy Mod" #mandatory
+updateJSONURL="http://myurl.me/" #optional
+displayURL="https://example.com" #optional
+logoFile="examplemod.png" #optional
+credits="TheSledgeHammer" #optional
+authors="TheSledgeHammer" #optional
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+'''
