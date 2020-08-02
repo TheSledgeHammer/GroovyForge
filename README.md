@@ -7,16 +7,17 @@
     <a href="https://minecraft.curseforge.com/projects/groovyforge"><img src="http://cf.way2muchnoise.eu/mods/317563.svg" /></a>
     <a href="https://minecraft.curseforge.com/projects/groovyforge"><img src="http://cf.way2muchnoise.eu/versions/317563.svg" /></a>
 </p>
+# GroovyForge:
+A Minecraft Forge Language providers for the Apache Groovy programming language.
 
 ### Getting Started:
-To use the GroovyForge Language Adapter add the following to @Mod in your main class
+To use the GroovyForge Language providers add the following to your mods.toml:
 ```
-@Mod(modLanguageAdapter = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter")
-class modclass {
-    //Your mod class info
-}
-
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="groovyfml"
+loaderVersion="[3,)"
 ```
+Currently unsure if this is required for Language providers or if you can just stick with javafml.
 
 ### Build Gradle Environment:
 
@@ -31,7 +32,7 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.15.2:+:universal"
 }
 ```
 

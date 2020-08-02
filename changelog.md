@@ -1,17 +1,9 @@
 #GroovyForge Changelog
 
 ## [Unreleased]
-
-## [1.0.1] - 2019-03-19
+## [3.0.0] - 2020-02-07
 ### Added
-### Changes
-### Fixed
-- Critical Bug Fixes
-### Removed
-
-## [1.0.0] - 2019-03-17
-### Added
-- Initial Release
+- Initial Release for Minecraft 1.15.2
 ### Changes
 ### Fixed
 ### Removed

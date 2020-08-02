@@ -1,29 +1,28 @@
 buildscript {
 	repositories {
+		maven { url = 'https://files.minecraftforge.net/maven' }
 		jcenter()
 		mavenCentral()
-		maven {
-			name = "forge"
-			url = "http://files.minecraftforge.net/maven"
-		}
 	}
 	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
 	}
 }
 
 plugins {
 	id 'groovy'
-	id 'idea'
 	id 'maven'
-	id "net.minecraftforge.gradle.forge" version "2.0.2"
+	id 'idea'
 	id "com.jfrog.bintray" version "1.8.4"
 }
+apply plugin: 'net.minecraftforge.gradle'
 apply from: project.file('maven.gradle')
 
-sourceCompatibility = 1.8
-targetCompatibility= 1.8
+version = version_major + '.' + version_minor + '.' + version_patch
+group = 'com.thesledgehammer.groovyforge'
+archivesBaseName = "GroovyForge_" + mcversion
 
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 repositories {
 	maven {
 		name = "Apache Groovy"
@@ -35,36 +34,70 @@ repositories {
 	}
 }
 
-version = version_major + '.' + version_minor + '.' + version_patch
-
 minecraft {
-	version =  mcversion + "-" + forgeversion
-	runDir = "run"
-	mappings = mcp_mappings
-	replaceIn "GroovyForge.groovy"
-	replace '@VERSION@', project.version
-	replace '@UPDATE@', update_json
+	mappings channel: 'snapshot', version:"${mcp_mappings}-${mc_version_mappings}"
+	runs {
+		client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                groovyforge {
+                    source sourceSets.main
+				}
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                groovyforge {
+                    source sourceSets.main
+                }
+            }
+        }
+
+		data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'groovyforge', '--all', '--output', file('src/generated/resources/')
+
+            mods {
+                groovyforge {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
 }
 
-group = 'com.thesledgehammer.groovyforge'
-archivesBaseName = "GroovyForge_" + mcversion
-
 dependencies {
+	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
 }
 
-processResources {
-	inputs.property "version", project.version
-	inputs.property "mcversion", project.minecraft.version
-	inputs.property "updatejson", update_json
-
-	from(sourceSets.main.resources.srcDirs) {
-		include 'mcmod.info'
-		// replace version and mcversion
-		expand 'version':project.version, 'mcversion':project.minecraft.version, 'updatejson': update_json
-	}
-	from(sourceSets.main.resources.srcDirs) {
-		exclude 'mcmod.info'
+jar {
+	manifest {
+		attributes([
+				'FMLModType': 'LANGPROVIDER'
+		])
+		attributes(['Specification-Title': 'Mod Language Provider',
+					'Specification-Vendor': 'TheSledgeHammer',
+					'Specification-Version': "3",
+					'Implementation-Title': "GroovyForge",
+					'Implementation-Version': "${version}",
+					'Implementation-Vendor' :'GroovyForge',
+					'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+		])
 	}
 }

@@ -11,9 +11,9 @@ def semVersion = version_major + '.' + version_minor + '.' + version_patch
 def artifactID = project.archivesBaseName + '_' + project.mcversion
 
 jar {
-  classifier = 'universal'
-  manifest {
-		attributes 'FMLAT': project.archivesBaseName + '_at.cfg'
+    archiveClassifier = "universal"
+    manifest {
+        attributes 'FMLAT': project.archivesBaseName + '_at.cfg'
   }
 }
 
@@ -23,8 +23,8 @@ signing {
     alias = System.getenv('keyStoreAlias')
     storePass = System.getenv('keyStorePass')
     keyPass = System.getenv('keyStoreKeyPass')
-    inputFile = jar.archivePath
-    outputFile = jar.archivePath
+    inputFile = jar.getArchiveFile()
+    outputFile = jar.getArchiveFile()
   }
 }
 
@@ -59,16 +59,18 @@ publishing {
     }
   }
   repositories {
-    maven {
-      url "https://dl.bintray.com/thesledgehammer/development"
-      url "file://${local_maven}"
-    }
+      maven {
+          url "https://dl.bintray.com/thesledgehammer/development"
+      }
+      maven {
+          url "file://${local_maven}"
+      }
   }
 }
 
 bintray {
-  user = System.getenv('bintray_user')
-  key = System.getenv('bintray_key')
+  user = project.hasProperty('bintray_user') ? project.property('bintray_user') : System.getenv('bintray_user')
+	key = project.hasProperty('bintray_key') ? project.property('bintray_key') : System.getenv('bintray_key')
   publications = ['maven']
   pkg {
     repo = 'development'
