@@ -1,4 +1,4 @@
-#GroovyForge Changelog
+# GroovyForge Changelog
 
 ## [3.0.2] - 2020-02-08
 ### Added

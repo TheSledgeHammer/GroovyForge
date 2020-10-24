@@ -32,9 +32,11 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.16.1:+:universal"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.16.x:+:universal"
+  /* Note: x equals the Minecraft Versions (e.g. x = 3 for Minecraft 1.16.3) */
 }
 ```
+
 
 ### Apache License v2.0:
 
