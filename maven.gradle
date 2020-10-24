@@ -63,7 +63,12 @@ publishing {
           url "https://dl.bintray.com/thesledgehammer/development"
       }
       maven {
-          url "file://${local_maven}"
+          name = project.archivesBaseName
+          url = uri('https://maven.pkg.github.com/TheSledgeHammer/'+ REPOSITORY_NAME)
+          credentials {
+              username = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_user")
+              password = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_key")
+          }
       }
   }
 }

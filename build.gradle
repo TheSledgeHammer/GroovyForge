@@ -34,6 +34,7 @@ repositories {
 	}
 }
 
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
 	mappings channel: 'snapshot', version:"${mcp_mappings}-${mc_version_mappings}"
 	runs {
