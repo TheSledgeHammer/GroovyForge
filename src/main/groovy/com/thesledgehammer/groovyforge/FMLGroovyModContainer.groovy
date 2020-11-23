@@ -28,6 +28,8 @@ import net.minecraftforge.fml.ModContainer
 import net.minecraftforge.fml.ModLoadingException
 import net.minecraftforge.fml.ModLoadingStage
 import net.minecraftforge.fml.config.ModConfig
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
+import net.minecraftforge.fml.javafmlmod.FMLModContainer
 import net.minecraftforge.forgespi.language.IModInfo
 import net.minecraftforge.forgespi.language.ModFileScanData
 import org.apache.logging.log4j.LogManager
@@ -44,22 +46,21 @@ import static net.minecraftforge.fml.Logging.LOADING
 class FMLGroovyModContainer extends ModContainer {
 
     private static final def LOGGER = LogManager.getLogger()
-    /*
     private final ModFileScanData scanResults
     private final IEventBus eventBus
-    */
     private Object modInstance
     private Class<?> modClass;
+    private FMLModContainer FML;
 
-    FMLGroovyModContainer(IModInfo info, String className, ClassLoader modClassLoader/*, ModFileScanData modFileScanResults*/) {
+    FMLGroovyModContainer(IModInfo info, String className, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
         super(info);
         LOGGER.debug(LOADING, "Creating FMLModContainer instance for {} with classLoader {} & {}", className, modClassLoader, getClass().getClassLoader())
-        /*
-        this.scanResults = modFileScanResults
 
-        this.eventBus = BusBuilder.builder().setExceptionHandler() .setExceptionHandler(this.&onEventFailed).setTrackPhases(false).build()
-        this.configHandler = Optional.of({ event -> this.eventBus.post(event) }) as Optional<Consumer<ModConfig.ModConfigEvent>>
-        */
+        this.FML = new FMLModContainer(info, className, modClassLoader, modFileScanResults);
+        this.scanResults = modFileScanResults
+        this.eventBus = BusBuilder.builder().setExceptionHandler().setExceptionHandler(FML::onEventFailed).setTrackPhases(false).build()
+        FML.configHandler = Optional.of(this.eventBus::post) as Optional<Consumer<ModConfig.ModConfigEvent>>
+        //this.configHandler = Optional.of(this.eventBus::post) as Optional<Consumer<ModConfig.ModConfigEvent>>
 
         final FMLGroovyModLoadingContext contextExtension = new FMLGroovyModLoadingContext(this)
         this.contextExtension = { -> contextExtension }
@@ -85,16 +86,10 @@ class FMLGroovyModContainer extends ModContainer {
     Object getMod() {
         return modInstance
     }
-/*
-    IEventBus getEventBus() {
-        return this.eventBus
-    }
 
-    @Override
-    protected void acceptEvent(final Event e) {
-        this.eventBus.post(e)
+    IEventBus getEventBus() {
+        return this.eventBus;
     }
-    */
 }
 /*
 class FMLGroovyModContainer extends FMLModContainer {

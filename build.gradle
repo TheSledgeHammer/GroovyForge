@@ -18,9 +18,9 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 apply from: project.file('maven.gradle')
 
-version = version_major + '.' + version_minor + '.' + version_patch
+version = "${version_major}.${version_minor}.${version_patch}"
 group = 'com.thesledgehammer.groovyforge'
-archivesBaseName = "GroovyForge_" + mcversion
+archivesBaseName = "GroovyForge_${mcversion}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 repositories {
@@ -35,6 +35,7 @@ repositories {
 }
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+println('Groovy: ' + System.getProperty('groovy.version') + ' JVM: ' + System.getProperty('groovy.vm.version') + '(' + System.getProperty('groovy.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
 	mappings channel: 'snapshot', version:"${mcp_mappings}-${mc_version_mappings}"
 	runs {
