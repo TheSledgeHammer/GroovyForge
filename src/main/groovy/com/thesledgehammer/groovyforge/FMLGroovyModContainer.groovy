@@ -16,19 +16,12 @@
 
 package com.thesledgehammer.groovyforge
 
-import com.ibm.icu.impl.Pair
-import net.minecraftforge.eventbus.EventBusErrorMessage
 import net.minecraftforge.eventbus.api.BusBuilder
-import net.minecraftforge.eventbus.api.Event
 import net.minecraftforge.eventbus.api.IEventBus
-import net.minecraftforge.eventbus.api.IEventListener
-import net.minecraftforge.fml.AutomaticEventSubscriber
-import net.minecraftforge.fml.ExtensionPoint
 import net.minecraftforge.fml.ModContainer
 import net.minecraftforge.fml.ModLoadingException
 import net.minecraftforge.fml.ModLoadingStage
 import net.minecraftforge.fml.config.ModConfig
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.fml.javafmlmod.FMLModContainer
 import net.minecraftforge.forgespi.language.IModInfo
 import net.minecraftforge.forgespi.language.ModFileScanData
@@ -37,11 +30,6 @@ import org.apache.logging.log4j.LogManager
 import java.util.function.Consumer
 
 import static net.minecraftforge.fml.Logging.LOADING
-
-/**
- * Extends FMLModContainer, thus is more likely to be interoperable with the FMLJavaModLoadingContext.
- * Note:Does not allow for use of the FMLJavaModLoadingContext from a Groovy Based Mod. Will throw a cast exception
- **/
 
 class FMLGroovyModContainer extends ModContainer {
 
@@ -54,19 +42,18 @@ class FMLGroovyModContainer extends ModContainer {
 
     FMLGroovyModContainer(IModInfo info, String className, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
         super(info);
-        LOGGER.debug(LOADING, "Creating FMLModContainer instance for {} with classLoader {} & {}", className, modClassLoader, getClass().getClassLoader())
+        LOGGER.debug(LOADING, "Creating FMLModContainer instance for {} with classLoader {} & {}", className, modClassLoader, getClass().getClassLoader());
 
         this.FML = new FMLModContainer(info, className, modClassLoader, modFileScanResults);
         this.scanResults = modFileScanResults
         this.eventBus = BusBuilder.builder().setExceptionHandler().setExceptionHandler(FML::onEventFailed).setTrackPhases(false).build()
         FML.configHandler = Optional.of(this.eventBus::post) as Optional<Consumer<ModConfig.ModConfigEvent>>
-        //this.configHandler = Optional.of(this.eventBus::post) as Optional<Consumer<ModConfig.ModConfigEvent>>
 
         final FMLGroovyModLoadingContext contextExtension = new FMLGroovyModLoadingContext(this)
         this.contextExtension = { -> contextExtension }
 
         try {
-            modClass = Class.forName(className, true, modClassLoader)
+            this.modClass = Class.forName(className, true, modClassLoader)
             LOGGER.debug(LOADING, "Loaded modclass {} with {}", modClass.getName(), modClass.getClassLoader())
         } catch (Throwable e) {
             LOGGER.error(LOADING, "Failed to load class {}", className, e)
@@ -91,12 +78,3 @@ class FMLGroovyModContainer extends ModContainer {
         return this.eventBus;
     }
 }
-/*
-class FMLGroovyModContainer extends FMLModContainer {
-    FMLGroovyModContainer(IModInfo info, String className, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
-        super(info, className, modClassLoader, modFileScanResults)
-        final FMLGroovyModLoadingContext contextExtension = new FMLGroovyModLoadingContext(this);
-        this.contextExtension = { -> contextExtension };
-    }
-}
-*/

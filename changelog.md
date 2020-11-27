@@ -1,5 +1,12 @@
 # GroovyForge Changelog
 
+## [4.0.0] - 2020-11-27
+### Added
+### Changes
+- Updated to Minecraft 1.16.4
+### Fixed
+### Removed
+
 ## [3.1.0] - 2020-11-23
 ### Added
 ### Changes
