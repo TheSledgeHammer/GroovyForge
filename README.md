@@ -17,7 +17,6 @@ To use the GroovyForge Language providers add the following to your mods.toml:
 modLoader="groovyfml"
 loaderVersion="[4,)"
 ```
-Currently unsure if this is required for Language providers or if you can just stick with javafml.
 
 ### Build Gradle Environment:
 
