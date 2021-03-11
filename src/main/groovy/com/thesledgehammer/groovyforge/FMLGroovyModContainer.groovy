@@ -12,6 +12,26 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Notice: This file is a modified version of Minecraft Forge's "FMLModContainer".
+ */
+/*
+ * Minecraft Forge
+ * Copyright (c) 2016-2020.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation version 2.1
+ * of the License.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 package com.thesledgehammer.groovyforge
@@ -52,12 +72,25 @@ class FMLGroovyModContainer extends ModContainer {
         final FMLGroovyModLoadingContext contextExtension = new FMLGroovyModLoadingContext(this)
         this.contextExtension = { -> contextExtension }
 
+        /* Construct ModClass */
         try {
             this.modClass = Class.forName(className, true, modClassLoader)
             LOGGER.debug(LOADING, "Loaded modclass {} with {}", modClass.getName(), modClass.getClassLoader())
         } catch (Throwable e) {
             LOGGER.error(LOADING, "Failed to load class {}", className, e)
             throw new ModLoadingException(info, ModLoadingStage.CONSTRUCT, "fml.modloading.failedtoloadmodclass", e)
+        }
+
+        /* Construct ModInstance */
+        if(this.modClass != null) {
+            try {
+                LOGGER.trace(LOADING, "Loading mod instance {} of type {}", getModId(), modClass.getName());
+                this.modInstance = modClass.newInstance();
+                LOGGER.trace(LOADING, "Loaded mod instance {} of type {}", getModId(), modClass.getName());
+            } catch (Throwable e) {
+                LOGGER.error(LOADING,"Failed to create mod instance. ModID: {}, class {}", getModId(), modClass.getName(), e);
+                throw new ModLoadingException(modInfo, ModLoadingStage.CONSTRUCT, "fml.modloading.failedtoloadmod", e, modClass);
+            }
         }
     }
 
