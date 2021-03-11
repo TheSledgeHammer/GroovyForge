@@ -1,5 +1,13 @@
 # GroovyForge Changelog
 
+## [4.0.1] - 2021-03-11
+### Added
+### Changes
+- Updated to Minecraft 1.16.5
+- Updated to Groovy 3.0.7
+### Fixed
+### Removed
+
 ## [4.0.0] - 2020-11-27
 ### Added
 ### Changes
