@@ -29,7 +29,7 @@ signing {
 }
 
 publishing {
-	publications {
+  publications {
     maven(MavenPublication) {
       groupId = group
       version = semVersion
@@ -59,12 +59,14 @@ publishing {
     }
   }
   repositories {
+     /*
       maven {
           url "https://dl.bintray.com/thesledgehammer/development"
       }
+      */
       maven {
           name = project.archivesBaseName
-          url = uri('https://maven.pkg.github.com/TheSledgeHammer/'+ REPOSITORY_NAME)
+          url = uri("https://maven.pkg.github.com/TheSledgeHammer/${REPOSITORY_NAME}")
           credentials {
               username = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_user")
               password = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_key")
@@ -72,7 +74,7 @@ publishing {
       }
   }
 }
-
+/*
 bintray {
   user = project.hasProperty('bintray_user') ? project.property('bintray_user') : System.getenv('bintray_user')
 	key = project.hasProperty('bintray_key') ? project.property('bintray_key') : System.getenv('bintray_key')
@@ -85,3 +87,4 @@ bintray {
     }
   }
 }
+*/
