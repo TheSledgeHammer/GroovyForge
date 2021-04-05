@@ -26,7 +26,7 @@ Add the following to your build.Gradle
 repositories {
   maven {
     name = "GroovyForge"
-    url = "https://dl.bintray.com/thesledgehammer/development/"
+    url = "https://github.com/TheSledgehammer/"
   }
 }
 
