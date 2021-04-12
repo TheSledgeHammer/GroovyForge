@@ -9,13 +9,14 @@ apply plugin: 'signing'
 def group = "com.thesledgehammer.${project.archivesBaseName}"
 def semVersion = "${version_major}.${version_minor}.${version_patch}"
 def artifactID = "${project.archivesBaseName}_${project.mcversion}"
-
+/*
 jar {
     archiveClassifier = "universal"
     manifest {
         attributes 'FMLAT': project.archivesBaseName + '_at.cfg'
   }
 }
+*/
 
 signing {
   if (project.hasProperty('keystore')) {
