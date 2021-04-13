@@ -6,9 +6,9 @@ apply plugin: 'signing'
 //COMPANY: Company name or User
 //REPOSITORY_NAME: Git Repository name
 
-def group = "com.thesledgehammer" + "." + project.archivesBaseName
-def semVersion = version_major + '.' + version_minor + '.' + version_patch
-def artifactID = project.archivesBaseName + '_' + project.mcversion
+def group = "com.thesledgehammer.${project.archivesBaseName}"
+def semVersion = "${version_major}.${version_minor}.${version_patch}"
+def artifactID = "${project.archivesBaseName}_${project.mcversion}"
 
 jar {
     archiveClassifier = "universal"
@@ -39,8 +39,8 @@ publishing {
 
       pom {
        scm {
-          connection = 'scm:git:git@' + GITHOST + ':' + COMPANY + '/' + REPOSITORY_NAME + '.git'
-          developerConnection = 'scm:git:git@' + GITHOST + ':' + COMPANY + '/' + REPOSITORY_NAME + '.git'
+          connection = "scm:git:git@${GITHOST}:${COMPANY}/${REPOSITORY_NAME}.git"
+          developerConnection = "scm:git:git@${GITHOST}:${COMPANY}/${REPOSITORY_NAME}.git"
         }
         licenses {
           license {
@@ -59,11 +59,6 @@ publishing {
     }
   }
   repositories {
-     /*
-      maven {
-          url "https://dl.bintray.com/thesledgehammer/development"
-      }
-      */
       maven {
           name = project.archivesBaseName
           url = uri("https://maven.pkg.github.com/TheSledgeHammer/${REPOSITORY_NAME}")
@@ -74,17 +69,3 @@ publishing {
       }
   }
 }
-/*
-bintray {
-  user = project.hasProperty('bintray_user') ? project.property('bintray_user') : System.getenv('bintray_user')
-	key = project.hasProperty('bintray_key') ? project.property('bintray_key') : System.getenv('bintray_key')
-  publications = ['maven']
-  pkg {
-    repo = 'development'
-    name = project.archivesBaseName
-    version {
-      name = semVersion
-    }
-  }
-}
-*/
