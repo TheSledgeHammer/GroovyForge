@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_${mcversion}:${groovyforge_version}"
+	compile "ooo.thesledgehammer:groovyforge:${groovyforge_version}"
 }
 ```
 

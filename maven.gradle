@@ -6,17 +6,9 @@ apply plugin: 'signing'
 //COMPANY: Company name or User
 //REPOSITORY_NAME: Git Repository name
 
-def group = "com.thesledgehammer.${project.archivesBaseName}"
+def group = "ooo.thesledgehammer"
 def semVersion = "${version_major}.${version_minor}.${version_patch}"
-def artifactID = "${project.archivesBaseName}_${project.mcversion}"
-/*
-jar {
-    archiveClassifier = "universal"
-    manifest {
-        attributes 'FMLAT': project.archivesBaseName + '_at.cfg'
-  }
-}
-*/
+def artifactID = "${project.archivesBaseName}"
 
 signing {
   if (project.hasProperty('keystore')) {
@@ -61,7 +53,6 @@ publishing {
   }
   repositories {
       maven {
-          name = project.archivesBaseName
           url = uri("https://maven.pkg.github.com/TheSledgeHammer/${REPOSITORY_NAME}")
           credentials {
               username = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_user")
