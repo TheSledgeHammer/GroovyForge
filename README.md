@@ -26,16 +26,14 @@ Add the following to your build.Gradle
 repositories {
   maven {
     name = "GroovyForge"
-    url = "https://dl.bintray.com/thesledgehammer/development/"
+    url = "https://maven.pkg.github.com/TheSledgeHammer/GroovyForge"
   }
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.16.x:+:universal"
-  /* Note: x equals the Minecraft Versions (e.g. x = 3 for Minecraft 1.16.3) */
+	compile "ooo.thesledgehammer:groovyforge:${groovyforge_version}"
 }
 ```
-
 
 ### Apache License v2.0:
 
