@@ -8,7 +8,7 @@ apply plugin: 'signing'
 
 def group = "ooo.thesledgehammer"
 def semVersion = "${version_major}.${version_minor}.${version_patch}"
-def artifactID = "${project.archivesBaseName}"
+def artifactID = "groovyforge"
 
 signing {
   if (project.hasProperty('keystore')) {
