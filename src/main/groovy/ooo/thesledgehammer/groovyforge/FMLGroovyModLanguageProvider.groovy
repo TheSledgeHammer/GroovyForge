@@ -34,7 +34,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package com.thesledgehammer.groovyforge
+package ooo.thesledgehammer.groovyforge
 
 import net.minecraftforge.forgespi.language.ILifecycleEvent
 import net.minecraftforge.forgespi.language.IModInfo
