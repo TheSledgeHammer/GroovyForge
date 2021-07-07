@@ -63,6 +63,7 @@ class FMLGroovyModLanguageProvider implements IModLanguageProvider {
         private static final Logger LOGGER = FMLGroovyModLanguageProvider.LOGGER
         private final String className
         private final String modId
+        private static final String modContainerName = "ooo.thesledgehammer.groovyforge.FMLGroovyModContainer";
 
         FMLGroovyModTarget(String className, String modId) {
             this.className = className
@@ -76,7 +77,7 @@ class FMLGroovyModLanguageProvider implements IModLanguageProvider {
         @Override
         <T> T loadMod(final IModInfo info, final ClassLoader modClassLoader, final ModFileScanData modFileScanResults) {
             try {
-                final Class<?> fmlContainer = Class.forName("com.thesledgehammer.groovyforge.FMLGroovyModContainer", true, Thread.currentThread().getContextClassLoader())
+                final Class<?> fmlContainer = Class.forName(modContainerName, true, Thread.currentThread().getContextClassLoader())
                 LOGGER.debug(LOADING, "Loading FMLGroovyModContainer from classloader {} - got {}", Thread.currentThread().getContextClassLoader(), fmlContainer.getClassLoader())
                 final Constructor<?> constructor = fmlContainer.getConstructor(IModInfo.class, String.class, ClassLoader.class, ModFileScanData.class)
                 return (T) constructor.newInstance(info, className, modClassLoader, modFileScanResults)

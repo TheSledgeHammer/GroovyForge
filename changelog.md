@@ -1,4 +1,18 @@
 # GroovyForge Changelog
+## [4.0.4] - 2021-07-07
+### Added
+### Changes
+### Fixed
+- Incorrect class name for FMLGroovyModLanguageProvider 
+### Removed
+
+## [4.0.3] - 2021-07-05
+### Added
+### Changes
+- Groovy dependencies reduced
+- Updated to Groovy 3.0.8
+### Fixed
+### Removed
 
 ## [4.0.1] - 2021-03-11
 ### Added
