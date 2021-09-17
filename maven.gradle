@@ -1,14 +1,9 @@
-apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 //GITHOST: Remote hosting location e.g. GitHub.com, GitLab.com, BitBucket.org etc
 //COMPANY: Company name or User
 //REPOSITORY_NAME: Git Repository name
-
-def group = "ooo.thesledgehammer"
-def semVersion = "${version_major}.${version_minor}.${version_patch}"
-def artifactID = "groovyforge"
 
 signing {
   if (project.hasProperty('keystore')) {
@@ -24,9 +19,9 @@ signing {
 publishing {
   publications {
     maven(MavenPublication) {
-      groupId = group
-      version = semVersion
-      artifactId = artifactID
+      groupId = "ooo.thesledgehammer"
+      version = "${version_major}.${version_minor}.${version_patch}"
+      artifactId = "groovyforge"
 
       from components.java
 

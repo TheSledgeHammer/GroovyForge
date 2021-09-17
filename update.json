@@ -31,6 +31,9 @@
   "1.16.5": {
     "4.0.4": "See Changelog for version 3.0.1"
   },
+  "1.17.1": {
+    "5.0.0": "See Changelog for version 5.0.0"
+  },
   "promos": {
     "1.12.2-latest": "1.0.1",
     "1.12.2-recommended": "1.0.1",
@@ -49,6 +52,7 @@
     "1.16.4-latest": "4.0.0",
     "1.16.4-recommended": "4.0.0",
     "1.16.5-latest": "4.0.4",
-    "1.16.5-recommended": "4.0.4"
+    "1.17.1-recommended": "5.0.0",
+    "1.17.1-latest": "5.0.0"
   }
 }

@@ -36,6 +36,10 @@
 
 package ooo.thesledgehammer.groovyforge
 
+import cpw.mods.modlauncher.api.LamdbaExceptionUtils
+import net.minecraftforge.fml.ModLoadingException
+import net.minecraftforge.fml.ModLoadingStage
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider
 import net.minecraftforge.forgespi.language.ILifecycleEvent
 import net.minecraftforge.forgespi.language.IModInfo
 import net.minecraftforge.forgespi.language.IModLanguageProvider
@@ -56,16 +60,15 @@ import static net.minecraftforge.fml.Logging.SCAN
 
 class FMLGroovyModLanguageProvider implements IModLanguageProvider {
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger()
 
-    private static class FMLGroovyModTarget implements IModLanguageLoader {
+    private static class FMLGroovyModTarget implements IModLanguageProvider.IModLanguageLoader {
 
         private static final Logger LOGGER = FMLGroovyModLanguageProvider.LOGGER
         private final String className
         private final String modId
-        private static final String modContainerName = "ooo.thesledgehammer.groovyforge.FMLGroovyModContainer";
 
-        FMLGroovyModTarget(String className, String modId) {
+        private FMLGroovyModTarget(String className, String modId) {
             this.className = className
             this.modId = modId
         }
@@ -75,20 +78,40 @@ class FMLGroovyModLanguageProvider implements IModLanguageProvider {
         }
 
         @Override
-        <T> T loadMod(final IModInfo info, final ClassLoader modClassLoader, final ModFileScanData modFileScanResults) {
+        <T> T loadMod(final IModInfo info, final ModFileScanData modFileScanResults, final ModuleLayer gameLayer) {
             try {
-                final Class<?> fmlContainer = Class.forName(modContainerName, true, Thread.currentThread().getContextClassLoader())
+                final Class<?> fmlContainer = Class.forName("ooo.thesledgehammer.groovyforge.FMLGroovyModContainer", true, Thread.currentThread().getContextClassLoader())
                 LOGGER.debug(LOADING, "Loading FMLGroovyModContainer from classloader {} - got {}", Thread.currentThread().getContextClassLoader(), fmlContainer.getClassLoader())
-                final Constructor<?> constructor = fmlContainer.getConstructor(IModInfo.class, String.class, ClassLoader.class, ModFileScanData.class)
-                return (T) constructor.newInstance(info, className, modClassLoader, modFileScanResults)
-            } catch (NoSuchMethodException | ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                LOGGER.fatal(LOADING,"Unable to load FMLGroovyModContainer, wut?", e)
-                throw new RuntimeException(e)
+                final Constructor<?> constructor = fmlContainer.getConstructor(IModInfo.class, String.class, ModFileScanData.class, ModuleLayer.class)
+                return (T) constructor.newInstance(info, className, modFileScanResults, gameLayer)
+            } catch (InvocationTargetException e) {
+                LOGGER.fatal(LOADING, "Failed to build mod", e)
+                if (e.getTargetException() instanceof ModLoadingException) {
+                    throw e.getTargetException()
+                } else {
+                    throw new ModLoadingException(info, ModLoadingStage.CONSTRUCT, "fml.modloading.failedtoloadmodclass", e)
+                }
+            } catch (NoSuchMethodException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                LOGGER.fatal(LOADING,"Unable to load FMLModContainer, wut?", e)
+                final Class<RuntimeException> mle = (Class<RuntimeException>) LamdbaExceptionUtils.uncheck(
+                        {
+                            ->Class.forName("net.minecraftforge.fml.ModLoadingException", true, Thread.currentThread().getContextClassLoader())
+                        } as LamdbaExceptionUtils.Runnable_WithExceptions
+                )
+
+                final Class<ModLoadingStage> mls = (Class<ModLoadingStage>) LamdbaExceptionUtils.uncheck(
+                        {
+                            ->Class.forName("net.minecraftforge.fml.ModLoadingStage", true, Thread.currentThread().getContextClassLoader())
+                        } as LamdbaExceptionUtils.Runnable_WithExceptions
+                )
+                throw LamdbaExceptionUtils.uncheck(
+                        {
+                            ->LamdbaExceptionUtils.uncheck(mle.getConstructor(IModInfo.class, mls, String.class, Throwable.class) as LamdbaExceptionUtils.Runnable_WithExceptions).newInstance(info, Enum.valueOf(mls, "CONSTRUCT"), "fml.modloading.failedtoloadmodclass", e)
+                        } as LamdbaExceptionUtils.Runnable_WithExceptions
+                )
             }
         }
     }
-
-    static final Type MODANNOTATION =  Type.getType("Lnet/minecraftforge/fml/common/Mod;")
 
     @Override
     String name() {
@@ -97,14 +120,13 @@ class FMLGroovyModLanguageProvider implements IModLanguageProvider {
 
     @Override
     Consumer<ModFileScanData> getFileVisitor() {
-        return { scanResult ->
+        return (scanResult -> {
             final Map<String, FMLGroovyModTarget> modTargetMap = scanResult.getAnnotations().stream()
-                    .filter(ad -> ad.getAnnotationType().equals(MODANNOTATION))
-                    .peek(ad -> LOGGER.debug(SCAN, "Found @Mod class {} with id {}", ad.getClassType().getClassName(), ad.getAnnotationData().get("value")))
-                    .map(ad -> new FMLGroovyModTarget(ad.getClassType().getClassName(), (String)ad.getAnnotationData().get("value")))
-                    .collect(Collectors.toMap({it.getModId()} as Function<FMLGroovyModTarget, String>, Function.identity(), (a, b) -> a))
-            scanResult.addLanguageLoader(modTargetMap)
-        }
+                    .filter(ad -> ad.annotationType().equals(FMLJavaModLanguageProvider.MODANNOTATION))
+                    .peek(ad -> LOGGER.debug(SCAN, "Found @Mod class {} with id {}", ad.clazz().getClassName(), ad.annotationData().get("value")))
+                    .map(ad -> new FMLGroovyModTarget(ad.clazz().getClassName(), (String) ad.annotationData().get("value")))
+                    .collect(Collectors.toMap(FMLGroovyModTarget::getModId, Function.identity(), (a, b) -> a));
+            scanResult.addLanguageLoader(modTargetMap) } );
     }
 
     @Override

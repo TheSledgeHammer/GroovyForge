@@ -1,4 +1,15 @@
 # GroovyForge Changelog
+## [5.0.0] - 2021-08-20
+### Added
+### Changes
+- Updated to Minecraft 1.17.1
+- GroovyFML changes now match the JavaFML
+### Fixed
+### Removed
+### Bugs
+- File Resources is not a jar file
+  - Workaround: click "continue to main menu"
+
 ## [4.0.4] - 2021-07-07
 ### Added
 ### Changes

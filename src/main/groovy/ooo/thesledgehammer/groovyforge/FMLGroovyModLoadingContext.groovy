@@ -31,6 +31,6 @@ class FMLGroovyModLoadingContext {
     }
 
     static FMLGroovyModLoadingContext get() {
-        return ModLoadingContext.get().extension()
+        return ModLoadingContext.get().extension();
     }
 }

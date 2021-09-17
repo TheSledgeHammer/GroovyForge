@@ -36,13 +36,17 @@
 
 package ooo.thesledgehammer.groovyforge
 
+import net.minecraftforge.eventbus.EventBusErrorMessage
 import net.minecraftforge.eventbus.api.BusBuilder
+import net.minecraftforge.eventbus.api.Event
 import net.minecraftforge.eventbus.api.IEventBus
+import net.minecraftforge.eventbus.api.IEventListener
 import net.minecraftforge.fml.ModContainer
 import net.minecraftforge.fml.ModLoadingException
 import net.minecraftforge.fml.ModLoadingStage
-import net.minecraftforge.fml.config.ModConfig
-import net.minecraftforge.fml.javafmlmod.FMLModContainer
+import net.minecraftforge.fml.config.IConfigEvent
+import net.minecraftforge.fml.event.IModBusEvent
+import net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber
 import net.minecraftforge.forgespi.language.IModInfo
 import net.minecraftforge.forgespi.language.ModFileScanData
 import org.apache.logging.log4j.LogManager
@@ -58,39 +62,49 @@ class FMLGroovyModContainer extends ModContainer {
     private final IEventBus eventBus
     private Object modInstance
     private Class<?> modClass;
-    private FMLModContainer FML;
 
-    FMLGroovyModContainer(IModInfo info, String className, ClassLoader modClassLoader, ModFileScanData modFileScanResults) {
+    FMLGroovyModContainer(IModInfo info, String className, ModFileScanData modFileScanResults, ModuleLayer gameLayer) {
         super(info);
-        LOGGER.debug(LOADING, "Creating FMLModContainer instance for {} with classLoader {} & {}", className, modClassLoader, getClass().getClassLoader());
-
-        this.FML = new FMLModContainer(info, className, modClassLoader, modFileScanResults);
+        LOGGER.debug(LOADING,"Creating FMLModContainer instance for {}", className);
         this.scanResults = modFileScanResults
-        this.eventBus = BusBuilder.builder().setExceptionHandler().setExceptionHandler(FML::onEventFailed).setTrackPhases(false).build()
-        FML.configHandler = Optional.of(this.eventBus::post) as Optional<Consumer<ModConfig.ModConfigEvent>>
-
+        activityMap.put(ModLoadingStage.CONSTRUCT, this::constructMod);
+        this.eventBus = BusBuilder.builder().setExceptionHandler(this::onEventFailed).setTrackPhases(false).markerType(IModBusEvent.class).build();
+        this.configHandler = Optional.of(ce->this.eventBus.post(ce.self())) as Optional<Consumer<IConfigEvent>>;
         final FMLGroovyModLoadingContext contextExtension = new FMLGroovyModLoadingContext(this)
         this.contextExtension = { -> contextExtension }
 
-        /* Construct ModClass */
         try {
-            this.modClass = Class.forName(className, true, modClassLoader)
-            LOGGER.debug(LOADING, "Loaded modclass {} with {}", modClass.getName(), modClass.getClassLoader())
-        } catch (Throwable e) {
-            LOGGER.error(LOADING, "Failed to load class {}", className, e)
-            throw new ModLoadingException(info, ModLoadingStage.CONSTRUCT, "fml.modloading.failedtoloadmodclass", e)
+            var layer = gameLayer.findModule(info.getOwningFile().moduleName()).orElseThrow();
+            modClass = Class.forName(layer, className);
+            LOGGER.trace(LOADING,"Loaded modclass {} with {}", modClass.getName(), modClass.getClassLoader());
         }
+        catch (Throwable e) {
+            LOGGER.error(LOADING, "Failed to load class {}", className, e);
+            throw new ModLoadingException(info, ModLoadingStage.CONSTRUCT, "fml.modloading.failedtoloadmodclass", e);
+        }
+    }
 
-        /* Construct ModInstance */
-        if(this.modClass != null) {
-            try {
-                LOGGER.trace(LOADING, "Loading mod instance {} of type {}", getModId(), modClass.getName());
-                this.modInstance = modClass.newInstance();
-                LOGGER.trace(LOADING, "Loaded mod instance {} of type {}", getModId(), modClass.getName());
-            } catch (Throwable e) {
-                LOGGER.error(LOADING,"Failed to create mod instance. ModID: {}, class {}", getModId(), modClass.getName(), e);
-                throw new ModLoadingException(modInfo, ModLoadingStage.CONSTRUCT, "fml.modloading.failedtoloadmod", e, modClass);
-            }
+    private void onEventFailed(IEventBus iEventBus, Event event, IEventListener[] iEventListeners, int i, Throwable throwable) {
+        LOGGER.error(new EventBusErrorMessage(event, i, iEventListeners, throwable));
+    }
+
+    private void constructMod() {
+        try {
+            LOGGER.trace(LOADING, "Loading mod instance {} of type {}", getModId(), modClass.getName());
+            this.modInstance = modClass.getDeclaredConstructor().newInstance();
+            LOGGER.trace(LOADING, "Loaded mod instance {} of type {}", getModId(), modClass.getName());
+        }
+        catch (Throwable e) {
+            LOGGER.error(LOADING,"Failed to create mod instance. ModID: {}, class {}", getModId(), modClass.getName(), e);
+            throw new ModLoadingException(modInfo, ModLoadingStage.CONSTRUCT, "fml.modloading.failedtoloadmod", e, modClass);
+        }
+        try {
+            LOGGER.trace(LOADING, "Injecting Automatic event subscribers for {}", getModId());
+            AutomaticEventSubscriber.inject(this, this.scanResults, this.modClass.getClassLoader());
+            LOGGER.trace(LOADING, "Completed Automatic event subscribers for {}", getModId());
+        } catch (Throwable e) {
+            LOGGER.error(LOADING,"Failed to register automatic subscribers. ModID: {}, class {}", getModId(), modClass.getName(), e);
+            throw new ModLoadingException(modInfo, ModLoadingStage.CONSTRUCT, "fml.modloading.failedtoloadmod", e, modClass);
         }
     }
 
